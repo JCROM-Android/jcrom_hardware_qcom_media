@@ -13,6 +13,7 @@ libmm-venc-def += -D__align=__alignx
 libmm-venc-def += -D__alignx\(x\)=__attribute__\(\(__aligned__\(x\)\)\)
 libmm-venc-def += -DT_ARM
 libmm-venc-def += -Dinline=__inline
+libmm-venc-def += -fno-strict-aliasing
 libmm-venc-def += -D_ANDROID_
 libmm-venc-def += -UENABLE_DEBUG_LOW
 libmm-venc-def += -DENABLE_DEBUG_HIGH
@@ -82,7 +83,7 @@ include $(BUILD_SHARED_LIBRARY)
 # -----------------------------------------------------------------------------
 #  #                       Make the apps-test (mm-venc-omx-test720p)
 # -----------------------------------------------------------------------------
-
+ifeq ($(ENABLE_TEST_BUILD),true)
 include $(CLEAR_VARS)
 
 mm-venc-test720p-inc            := $(TARGET_OUT_HEADERS)/mm-core
@@ -126,6 +127,8 @@ LOCAL_SRC_FILES                 := test/video_encoder_test.c
 LOCAL_SRC_FILES                 += test/queue.c
 
 include $(BUILD_EXECUTABLE)
+
+endif
 
 endif #BUILD_TINY_ANDROID
 
